@@ -45,7 +45,7 @@ def register():
     else:
         try:
             data = request.get_json()
-            print(data)
+            # print(data)
 
             name = data['name']
             email = data['email']
