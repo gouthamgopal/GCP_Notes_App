@@ -9,7 +9,7 @@ app = Flask(__name__)
 cors = CORS(app)
 
 db = firestore.Client()
-userCollection = db.collection(u'users')
+userCollection = db.collection(u"users")
 
 SECRET_KEY = 'This is a secret'
 
@@ -17,7 +17,7 @@ SECRET_KEY = 'This is a secret'
 @app.route('/')
 @cross_origin()
 def test():
-    return ('Hellooo', 200)
+    return "Hellooo", 200
 
 
 @app.route('/login', methods=['GET', 'POST'])
