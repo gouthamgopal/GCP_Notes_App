@@ -3,9 +3,8 @@
 FROM python:3.9-slim
 
 # Copy local code to the container image.
-ENV APP_HOME /Authentication
-WORKDIR $APP_HOME
-COPY . ./
+WORKDIR /app
+COPY . .
 
 # Install production dependencies.
 RUN pip install Flask gunicorn
@@ -14,4 +13,4 @@ RUN pip install Flask gunicorn
 # webserver, with one worker process and 8 threads.
 # For environments with multiple CPU cores, increase the number of workers
 # to be equal to the cores available.
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
+CMD ["python", "-u", "app.py"]
