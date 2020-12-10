@@ -12,7 +12,7 @@ cors = CORS(app)
 @app.route('/')
 @cross_origin()
 def test():
-    return ('Hello Wold', 200)
+    return ('Hello old', 200)
 
 
 @app.route('/login', methods=['GET', 'POST'])
