@@ -2,12 +2,12 @@
 # https://hub.docker.com/_/python
 FROM python:3.9
 
-COPY . ./app
+COPY . /app
 # Copy local code to the container image.
 WORKDIR /app
 
 # Install production dependencies.
-RUN pip install --user -r requirements.txt
+RUN pip install -r requirements.txt
 RUN pip install google-cloud-firestore
 
 EXPOSE 8080
