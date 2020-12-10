@@ -50,7 +50,7 @@ def login():
             return Response('User does not exist.', status=401, mimetype='application/json')
         except Exception as e:
             print(str(e))
-            return Response('Auth login service Crash', status=500, mimetype='application/json')
+            return Response('Auth login service Crash', status=503, mimetype='application/json')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -83,7 +83,7 @@ def register():
 
         except Exception as e:
             print(str(e))
-            return Response('Auth register service Crash', status=500, mimetype='application/json')
+            return Response('Auth register service Crash', status=503, mimetype='application/json')
 
 
 if __name__ == "__main__":
