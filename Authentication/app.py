@@ -1,7 +1,7 @@
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS, cross_origin
 from google.cloud import firestore
-from  werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import json
 
@@ -12,6 +12,7 @@ db = firestore.Client()
 userCollection = db.collection(u'users')
 
 SECRET_KEY = 'This is a secret'
+
 
 @app.route('/')
 @cross_origin()
@@ -74,7 +75,7 @@ def register():
                 if user['email'] == email:
                     return Response('User already exists', status=202, mimetype='application/json')
 
-            payload = dict(name=data['name'], email=data['email'], password=data['password'])
+            payload = dict(name=data['name'], email=data['email'], password=generate_password_hash(data['password']))
 
             userCollection.add(payload)
 
