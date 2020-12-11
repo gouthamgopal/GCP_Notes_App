@@ -110,44 +110,49 @@ def update_note():
 @cross_origin()
 def delete_note():
     if request.method == 'GET':
-        # try:
-        print('Inside delete function')
-        auth_header = request.headers.get('Authorization')
-        args = request.args
+        try:
+            print('Inside delete function')
+            auth_header = request.headers.get('Authorization')
+            args = request.args
 
-        print('args', args)
+            print('args', args)
 
-        if auth_header:
-            auth_token = auth_header.split(" ")[1]
-        else:
-            auth_token = ''
+            if auth_header:
+                auth_token = auth_header.split(" ")[1]
+            else:
+                auth_token = ''
 
-        if auth_token != '':
-            user = jwt.decode(auth_token, SECRET_KEY)["user"]
+            if auth_token != '':
+                user = jwt.decode(auth_token, SECRET_KEY)["user"]
 
-            email = user['email']
-            topic = args['topic']
+                email = user['email']
+                topic = args['topic']
 
-            print('topic', topic)
+                print('topic', topic)
 
-            if topic == '':
-                return Response('No topic mentioned', status=404, mimetype='application/json')
+                if topic == '':
+                    return Response('No topic mentioned', status=404, mimetype='application/json')
 
-            docs = notesCollection.where(u'email', u'==', email).where(u'topic', u'==', topic).stream()
+                docs = notesCollection.where(u'email', u'==', email).where(u'topic', u'==', topic).stream()
 
-            if len(docs) == 0:
-                return Response('No such file found', status=404, mimetype='application/json')
+                del_docs = []
 
-            for doc in docs:
-                doc.reference.delete()
+                for doc in docs:
+                    del_docs.append(doc)
 
-            return Response('Note deleted successfully', status=200, mimetype='application/json')
-        else:
-            return Response('User details not foudn', status=404, mimetype='application/json')
+                if len(del_docs) == 0:
+                    return Response('No such file found', status=404, mimetype='application/json')
+                else:
+                    for doc in del_docs:
+                        doc.reference.delete()
 
-        # except Exception as e:
-        #     print(str(e))
-        #     return Response('Notes: delete service crash', status=503, mimetype='application/json')
+                return Response('Note deleted successfully', status=200, mimetype='application/json')
+            else:
+                return Response('User details not foudn', status=404, mimetype='application/json')
+
+        except Exception as e:
+            print(str(e))
+            return Response('Notes: delete service crash', status=503, mimetype='application/json')
 
 
 @app.route('/fetch', methods=['GET'])
