@@ -48,6 +48,16 @@ def add_note():
                     u"date": date
                 }
 
+                docs = notesCollection.where(u'email', u'==', user["email"]).where(u'topic', u'==', topic).stream()
+
+                del_docs = []
+
+                for doc in docs:
+                    del_docs.append(doc)
+
+                if len(del_docs) == 0:
+                    return Response('Topic already exists', status=202, mimetype='application/json')
+
                 notesCollection.add(payload)
 
                 return Response("Note added successfully", status=200, mimetype='application/json')
