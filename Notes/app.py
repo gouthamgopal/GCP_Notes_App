@@ -111,8 +111,11 @@ def update_note():
 def delete_note():
     if request.method == 'GET':
         try:
+            print('Inside delete function')
             auth_header = request.headers.get('Authorization')
             args = request.args
+
+            print('args', args)
 
             if auth_header:
                 auth_token = auth_header.split(" ")[1]
@@ -125,7 +128,7 @@ def delete_note():
                 email = user['email']
                 topic = args['topic']
 
-                print(topic)
+                print('topic', topic)
 
                 if topic == '':
                     return Response('No topic mentioned', status=404, mimetype='application/json')
