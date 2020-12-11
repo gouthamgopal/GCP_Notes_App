@@ -125,6 +125,11 @@ def delete_note():
                 email = user['email']
                 topic = args['topic']
 
+                print(topic)
+
+                if topic == '':
+                    return Response('No topic mentioned', status=404, mimetype='application/json')
+
                 docs = notesCollection.where(u'email', u'==', email).where(u'topic', u'==', topic).stream()
 
                 if len(docs) == 0:
