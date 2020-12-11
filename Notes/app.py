@@ -55,14 +55,14 @@ def add_note():
                 for doc in docs:
                     del_docs.append(doc)
 
-                if len(del_docs) == 0:
+                if len(del_docs) != 0:
                     return Response('Topic already exists', status=202, mimetype='application/json')
 
                 notesCollection.add(payload)
 
                 return Response("Note added successfully", status=200, mimetype='application/json')
             else:
-                return Response('User details not foudn', status=404, mimetype='application/json')
+                return Response('User details not found', status=404, mimetype='application/json')
 
         except Exception as e:
             print(str(e))
@@ -109,7 +109,7 @@ def update_note():
 
                 return Response("Note updated successfully", status=200, mimetype='application/json')
             else:
-                return Response('User details not foudn', status=404, mimetype='application/json')
+                return Response('User details not found', status=404, mimetype='application/json')
 
         except Exception as e:
             print(str(e))
@@ -158,7 +158,7 @@ def delete_note():
 
                 return Response('Note deleted successfully', status=200, mimetype='application/json')
             else:
-                return Response('User details not foudn', status=404, mimetype='application/json')
+                return Response('User details not found', status=404, mimetype='application/json')
 
         except Exception as e:
             print(str(e))
@@ -191,7 +191,7 @@ def fetch_note():
 
                 return Response(json.dumps(documents), status=200, mimetype='application/json')
             else:
-                return Response('User details not foudn', status=404, mimetype='application/json')
+                return Response('User details not found', status=404, mimetype='application/json')
 
         except Exception as e:
             print(str(e))
