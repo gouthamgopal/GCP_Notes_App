@@ -57,7 +57,7 @@ def login():
 @cross_origin()
 def register():
     if request.method == 'GET':
-        return Response('Test register call')
+        return Response('Test register')
     else:
         try:
             data = request.get_json()
