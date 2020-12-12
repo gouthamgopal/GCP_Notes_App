@@ -63,7 +63,6 @@ def register():
             data = request.get_json()
             print(data)
 
-            # TODO: write logic for firestore write and check.
             # Check if user exists already in the system.
 
             email = data['email']
